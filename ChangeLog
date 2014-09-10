@@ -1,0 +1,233 @@
+2005-02-25 Robby Russell
+  @N added new Portuguese/Brazilian translation.
+  @N removed PHPSESSID from urls for security purposes.
+  @N Cleaned up inc/includer.inc.php
+  @N Cleaned up index.php
+  @N Fixed bugs with times displaying as 0:00 in the task viewer window.
+  @N Moved constants
+  @N Began cleaning up inc/users.inc.php for future db layer
+
+2004-03-17 Olaf Willuhn <info@willuhn.de>
+  @N added the ability to configure the behavior for which kind of tasks the
+     customer has to pay for. (see cfg/config.inc.php --> $config['paytasks'])
+  @N added project priorities.
+     NOTE: you have to apply the latest update sql script (table_update_1.2.1.sql to add this row)
+     --> now we have two classes which have an attribute "priority", so i've
+         moved the according code into a separate class "priority.inc.php".
+         both classes (task (via request) and project) inherit from this one.
+
+2004-02-29  <>
+  @B missing semicolon at the and of the line
+
+2004-02-29  <>
+  @N added tom's new column "flags" to the job table
+
+2004-02-17  <>
+  @N added consecutive id to xml code of reports
+  @N added czech language file
+  @N added spanish language file
+
+2003-11-18  <>
+  @N updated italian language file
+
+2003-11-17  <>
+  @N some more fixes at the new project status plugin
+
+2003-11-05  <>
+  @N added portuguese language file  - many thanks to Daniel Santos
+  @C changed the field "fied price" in tasks from integer to float
+
+2003-10-09 Olaf Willuhn <info@willuhn.de>
+  @B bug fixed in encodeString and rights page (array were not handled correctly via POST)
+
+2003-10-07 Olaf Willuhn <info@willuhn.de>
+  @B fixed bug (sourceforge bug id: 815180)
+
+2003-10-07 Olaf Willuhn <info@willuhn.de>
+  @N added italian language file
+
+2003-09-27 Olaf Willuhn <info@willuhn.de>
+  @B fix on logon page (empty passwords enabled again)
+  @N added DEMO_MODE
+
+2003-09-27 Olaf Willuhn <info@willuhn.de>
+  @B fixed typo in taskbar.php
+
+2003-09-27 Olaf Willuhn <info@willuhn.de>
+  @C replaced all HTTP_POST_VARS and HTTP_GET_VARS with tool::secureGet() and tool::securePost()
+  @C replacing of all dangerous chars in input (cross site scripting)
+
+2003-09-02 Olaf Willuhn <info@willuhn.de>
+  @N added dutch language file - many thanks to Suat Gedik
+
+2003-08-29 Olaf Willuhn <info@willuhn.de>
+  @C changed xml column in report table from blob to mediumblob
+
+2003-08-27: v1.1b
+      + new   : aded some sql indexes (for performance reasons)
+      + new   : tasks without jobs but fixed price can be reported now
+
+2003-08-08:
+      + bug   : see bug id 771449 on sf.net
+
+2003-07-27: v1.1a
+      + change: removed all "short open tags"
+                "&lt;?" --> "&lt;?PHP"
+                --==[ Many Thanks to Arne Kepp who made this! ]==--
+
+2003-01-10: v1.1
+      + new   : attachments for tasks
+      + new   : task dependencies
+      + new   : support for plugins (some sample plugins included)
+      + new   : multilanguage support (incomplete)
+      + new   : some new fields in tasks
+      + new   : bugfixes in session handling, a lot more ;)
+
+2001-12-11: v1.0.1
+      + new   : some new tags in reports
+                see templates/report/bill/syntax.xml
+                for details
+      + bug   : security bugfix in index.php (include())
+      + new   : rounding of used time implemented
+
+2001-12-05: v1.0
+      + new   : completly redesigned the whole application
+                encapsulated all functions in classes
+      + new   : ability to generate reports in XML format
+      + new   : ACLs
+                you can create/change groups, put users
+                into and assign rights to the groups
+                You are able to control the access for
+                every function call!
+      + new   : customer logins
+      + new   : ability to set costs per hour for users
+                AND projects. if both ist set, the project
+                costs will be used.
+      + new   : requests (most usefull for customers)
+                users are able to post requests. the
+                project manager will be informed by email
+                and is able to assign this request to one
+                of his developers. the request will then
+                switched into a task
+      + laberlaber ... foobar ... many other things ;)
+
+2001-08-21: v0.9.6
+      + new   : new design
+      + new   : db functions in class style
+
+2001-08-15: v0.9.5
+      + new   : only users with admin access are now allowed
+                to change user records.
+                All other users may only change their own password
+
+        If you are upgrading from a previous version, please
+        execute the following commands at mysql prompt:
+
+        mysql> use pmtool;
+        mysql> update user set access='a' where username='<your username>';
+        mysql> exit;
+
+        This is needed, to give yourself initial admin access.
+
+2001-08-05: v0.9.4a
+      + bugfix: default start time on report page
+                was calculated wrong
+
+2001-07-28: v0.9.4
+      + bugfix: session_start in index.php
+      + bugfix: forward url in logout.php
+        Thanks to Thomas Kho again ;)
+      + new   : new page "reports" to create a list
+                of your jobs for the last days. Good
+                for creating status reports for your
+                project manager ;)
+
+2001-07-15: V0.9.3
+      + new   : support for creating excel-sheets on the
+                fly (in stats page) requires the PERL-Modul
+                "Spreadsheet::WriteExcel" !
+                See README for further details
+      + new   : you can sort all pages by clicking the
+                table header, a click again reverts the order
+      + new   : taskbar utility
+                this is a VERY usefull tool for windows users
+                - just rightclick on your startmenu, choose
+                  iconbar, new iconbar... and place the url
+                  "http://<pmtool-location>/taskbar.php"
+                  into the field "foldername" - it seems to be
+                  freaky, but it works cool ;)
+      + bugfix: "posted" time was shown wrong on task page
+      + new   : extended structure of table "user"
+                Now it's possible to authenticate users with Remote-IP.
+                If no IP from user-table matches the submitted
+                Client-IP, the regular user/password dialogue
+                will be shown.
+                Note: if the user comes through a proxy like squid,
+                pmtool will detect it and uses $HTTP_X_FORWARDED_FOR
+                instead of $REMOTE_ADDR for authentication
+
+        If you allready have installed a version without
+        the fields "ip" and "access", execute the following
+        commands at mysql prompt:
+
+        mysql> use pmtool;
+        mysql> ALTER TABLE user ADD ip CHAR (15) not null;
+        mysql> ALTER TABLE user ADD access CHAR (10) not null;
+        mysql> exit;
+
+        the "access"-field will be used for further releases ;)
+
+2001-07-13: V0.9.2
+      + bugfix: stripped the newline at the end of all files in "inc"
+      + change: better logout.php ;)
+      + bugfix: fixes in get_time() and db_selectbox()
+      + bugfix: s/\n\r/\n/sg :o)
+
+        Thanx to Thomas Kho for these notes
+
+2001-06-02:
+      + bugfix: in filter "only last month" on stats
+      + new   : view "only actual month" in stats
+
+2001-06-30:
+      + new   : timeformat on stats,tasks and jobs switched from minutes HH:mm
+
+2001-06-21:
+      + new   : extended structure of customer table
+                if you allready have installed a version without
+                the fields "title,phone,fax...", execute the following
+                commands at mysql prompt:
+
+        mysql> use pmtool;
+        mysql> ALTER TABLE customer ADD title CHAR (100) not null AFTER id;
+        mysql> ALTER TABLE customer ADD lastname CHAR (100) not null AFTER name;
+        mysql> ALTER TABLE customer CHANGE name firstname CHAR (100) not null;
+        mysql> ALTER TABLE customer ADD phone CHAR (100) not null AFTER city;
+        mysql> ALTER TABLE customer ADD fax CHAR (100) not null AFTER phone;
+        mysql> ALTER TABLE customer ADD cellphone CHAR (100) not null AFTER fax;
+        mysql> exit;
+
+        After that you should split the customer name into firstname and lastname
+        by changing the records on customer page
+
+2001-06-15:
+      + new   : preselected username on loginpage after klicking the
+                link in the autogenerated email if the user authenticated
+                himself by using HTTP-Basic-Auth and both usernames are the same
+
+2001-06-14:
+      + new   : password support added
+
+        if you allready have installed a version without
+        password support, execute the following commands at
+        mysql prompt:
+
+        mysql> use pmtool;
+        mysql> ALTER TABLE user ADD password CHAR (20) not null AFTER username;
+        mysql> exit;
+
+2001-06-13:
+      + new   : new view in stats (only last month)
+      + new   : number_format sucks in PHP ;)
+      + new   : misc. bugfixes
+

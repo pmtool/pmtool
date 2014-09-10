@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+/***************************************************************************
+ * $Source: /cvsroot/pmtool/pmtool/templates/report/bill/syntax.xml,v $
+ * $Revision: 1.2 $
+ * $Date: 2004/02/17 22:07:16 $
+ * $Author: willuhn $
+ * $Locker:  $
+ * $State: Exp $
+ *
+ * Copyright (c) by willuhn.webdesign
+ * All rights reserved
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ ***************************************************************************/
+//-->
+
+<!--
+  this xml file describes the used XML-Tags
+//-->
+
+<?xml-stylesheet type="text/xsl" href="template.xsl"?>
+<report>
+  <id>
+    ID of this report
+  </id>
+  <firstname>
+    first name of the choosen customer (recipient)
+  </firstname>
+
+  <lastname>
+    last name of the choosen customer (recipient)
+  </lastname>
+
+  <company>
+    company name of the choosen customer (recipient)
+  </company>
+
+  <street>
+    street of the choosen customer (recipient)
+  </street>
+
+  <zip>
+    zip code of the choosen customer (recipient)
+  </zip>
+
+  <city>
+    city of the choosen customer (recipient)
+  </city>
+
+  <number>
+    customernumber of the choosen customer (recipient)
+  </number>
+
+  <subject>
+    subject of the report (will be used as headline)
+  </subject>
+
+
+
+  <!-- the task section will be repeated for every listed task //-->
+  <task>
+    <project>
+      name of the project
+    </project>
+
+    <subject>
+      subject of the task
+    </subject>
+
+    <body>
+      body content of task
+    </body>
+
+    <user>
+      user, assigned to the task
+    </user>
+
+    <time>
+      posted time
+    </time>
+
+    <priority>
+      priority of task
+    </priority>
+
+    <prioritystyle>
+      priority style [black, green, yellow, red]
+    </prioritystyle>
+
+    <type>
+      type of task
+    </type>
+
+    <typestyle>
+      type style [black, green, yellow, red, gray]
+    </typestyle>
+
+    <status>
+      status of task
+    </status>
+
+    <statusstyle>
+      status style [black, green, yellow, red]
+    </statusstyle>
+
+    <!-- the job section will be repeated for every listed job //-->
+    <job>
+      <comment>
+        comment of the job
+      </comment>
+
+      <start>
+        start time of the job
+      </start>
+
+      <stop>
+        stop time of the job
+      </stop>
+
+      <used>
+        used time
+      </used>
+
+    </job>
+
+    <rate>
+      rate for current task + currency name
+    </rate>
+
+    <costs>
+      effective cost for current task (only listed jobs) + currency name
+    </costs>
+
+    <completecosts>
+      effective cost for current task (all jobs in this task)
+    </completecosts>
+
+    <summary>
+      used time for current task  (only listed jobs)
+    </summary>
+
+    <completesummary>
+      used time for current task (all jobs in this task)
+    </completesummary>
+
+    <summaryrounded>
+      used time for current task, but rounded  (only listed jobs)
+    </summaryrounded>
+
+    <completesummaryrounded>
+      used time for current task, but rounded  (all jobs in this task)
+    </completesummaryrounded>
+
+    <customersummary>
+      used time for current task except bugs and todos (only listed jobs)
+    </customersummary>
+
+    <completecustomersummary>
+      used time for current task except bugs and todos (all jobs in this task)
+    </completecustomersummary>
+
+    <customersummaryrounded>
+      used time for current task except bugs and todos, but rounded (only listed jobs)
+    </customersummaryrounded>
+
+    <completecustomersummaryrounded>
+      used time for current task except bugs and todos, but rounded (all jobs in this task)
+    </completecustomersummaryrounded>
+
+    <customercosts>
+      costs for current task except bugs and todos (only listed jobs) + currency name
+    </customercosts>
+
+    <completecustomercosts>
+      costs for current task except bugs and todos (all jobs in this task) + currency name
+    </completecustomercosts>
+
+  </task>
+
+
+  <!-- same as above but this section (after all task section) contains the summaries of all tasks //-->
+  <summary></summary>
+  <completesummary></completesummary>
+  <summaryrounded></summaryrounded>
+  <completesummaryrounded></completesummaryrounded>
+  <customersummary></customersummary>
+  <completecustomersummary></completecustomersummary>
+  <customersummaryrounded></customersummaryrounded>
+  <completecustomersummaryrounded></completecustomersummaryrounded>
+  <costs></costs>
+  <completecosts></completecosts>
+  <customercosts></customercosts>
+  <completecustomercosts></completecustomercosts>
+
+  <currency>
+    name of currency
+  </currency>
+
+  <taxrate>
+    taxrate (percentage)
+  </taxrate>
+
+  <taxcosts>
+    amount of tax + currency name (only listed jobs)
+  </taxcosts>
+
+  <completetaxcosts>
+    amount of tax + currency name (all jobs in the listed tasks)
+  </completetaxcosts>
+
+  <customercoststax>
+    customer costs + taxcosts + currency name (only listed jobs)
+  </customercoststax>
+
+  <completecustomercoststax>
+    customer costs + taxcosts + currency name  (all jobs in the listed tasks)
+  </completecustomercoststax>
+
+  <date>
+    date of creation (YYYY-mm-dd)
+  </date>
+
+</report>
+

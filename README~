@@ -1,0 +1,184 @@
+###########################################################################
+# PM_tool                                                                 #
+# version 1.2.3                                                           #
+#                                                                         #
+# Copyright (C) Robby Russell 2004 - 2005           		          #
+# email: robby@planetargon.com 	                              	          #
+# www  : http://www.pmtool.org/					          #
+#                                                                         #
+# This program is free software; you can redistribute it and/or modify    #
+# it under the terms of the GNU General Public License as published by    #
+# the Free Software Foundation; either version 2 of the License, or       #
+# (at your option) any later version.                                     #
+#                                                                         #
+# This program is distributed in the hope that it will be useful,         #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# GNU General Public License for more details.                            #
+#                                                                         #
+# You should have received a copy of the GNU General Public License       #
+# along with this program; if not, write to the Free Software             #
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.               #
+#
+###########################################################################
+# Original Author: Olaf Willuhn 2000 - 2002 				  #
+###########################################################################
+
+###########################################################################
+# REQUIREMENTS                                                            #
+###########################################################################
+
+- Apache Webserver 1.3.6+ (or any other webserver, that supports PHP)
+  (http://www.apache.org/)
+
+- MySQL Server 3.22+
+  (http://www.mysql.com/)
+
+- PHP 4+ compiled with MySQL-Support
+  (http://www.php.net/)
+
+###########################################################################
+# UPDATE                                                                  #
+###########################################################################
+
+If you upgrade from a previous version (0.9.x or 1.0.x) please follow these
+steps instead of the notes in the "INSTALLATION" section
+
+- just copy all the files into any dir in your webserver documents dir
+  (i.e.: /usr/local/apache/htdocs/foo/bar/pmtool_1.0)
+  You can also delete all old pmtool files and copy the new ones
+  into this dir. (of course, you should make a backup of the old install ;)
+
+- edit your new configfile ("cfg/config.inc.php")
+
+  set the following vars to your settings
+  $dbconfig['user'] = "<pmtool_user>";     // db username
+  $dbconfig['pass'] = "<pmtool_password>"; // db password
+  $dbconfig['host'] = "<hostname>";        // hostname[:port]
+  $dbconfig['name'] = "<databasename>";    // databasename
+
+- if you update from version 0.9.x:
+  Run the SQL-Update-Script:
+  $> mysql -u <pmtool_user> -p<pmtool_password> < sql/table_update_0.9.x.sql
+
+- if you update from version 1.0.x:
+  Run the SQL-Update-Script:
+  $> mysql -u <pmtool_user> -p<pmtool_password> < sql/table_update_1.0.x.sql
+
+  Note: in 1.1 there are some new permission checks for task attachment.
+        If you uprade from 1.0.x, you need to add the following rights:
+          - attachment.activate (groups: admin,developer,manager,customer)
+          - attachment.insert   (groups: admin,developer,manager,customer)
+          - attachment.delete   (groups: admin,developer,manager)
+          - attachment.getSize  (groups: admin,developer,manager,customer)
+          - task.isAvailable    (groups: admin,developer,manager,customer)
+          - task.fixedPrice     (groups: admin,developer,manager,customer)
+
+        manually on the "rights" page of pmtool.
+        This is not needed, if you upgrade from 0.9.x or if you install
+        pmtool "from scratch"
+
+- if you update from version 1.1.x (before 1.1e):
+  Run the SQL-Update-Script:
+  $> mysql -u <pmtool_user> -p<pmtool_password> < sql/table_update_1.1.x.sql
+
+- if you update from version 1.2:
+  Run the SQL-Update-Script:
+  $> mysql -u <pmtool_user> -p<pmtool_password> < sql/table_update_1.2.x.sql
+
+- if you update from version 1.2.1:
+  Run the SQL-Update-Script:
+  $> mysql -u <pmtool_user> -p<pmtool_password> < sql/table_update_1.2.1.sql
+
+###########################################################################
+# INSTALLATION                                                            #
+###########################################################################
+
+- just copy all the files into any dir in your webserver documents dir
+  (i.e.: /usr/local/apache/htdocs/foo/bar/pmtool)
+
+- create a directory "run" writable for the webserver!
+  This is needed, if you want to upload task attachments
+  $> mkdir -p run/attach
+  $> chmod -R 757 run
+
+- create a MySQL-database and MySQL-User for pmtool
+  <pmtool_user>     -> database username
+  <pmtool_password> -> database password
+
+  $> mysql -u root -p
+  <enter your password here>
+
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 5525 to server version: 3.22.32
+
+  Type 'help' for help.
+
+  mysql> create database pmtool;
+  mysql> grant usage on pmtool.* to <pmtool_user>@localhost;
+  mysql> grant select,insert,update,delete,create on pmtool.* to <pmtool_user>@localhost identified by '<pmtool_password>';
+  mysql> flush privileges;
+  mysql> exit
+
+- create MySQL-Tables
+  $> mysql -u <pmtool_user> -p<pmtool_password> < sql/table_create.sql
+
+- edit the configfile ("cfg/config.inc.php")
+
+  set the following vars
+  $dbconfig['user'] = "<pmtool_user>";     // db username
+  $dbconfig['pass'] = "<pmtool_password>"; // db password
+  $dbconfig['host'] = "<hostname>";        // hostname[:port]
+  $dbconfig['name'] = "<databasename>";    // databasename
+
+  don't forget "<ESC>:wq" to store the changes in your config ;-)
+
+###########################################################################
+#                                                                         #
+
+- point your favorite webbrowser to "http://foo.bar/foo/bar/pmtool/index.php",
+  login as user "admin" (without password), go to "users", give yourself
+  a password. After that, go to "groups" and put your users into the different
+  groups.
+  NOTE: the group "access" includes all needed rights for changing the ACLs.
+        You should put a kind of backdoor-user into this group.
+        Reason: It's possible to remove yourself from ALL groups/rights!
+        After this, you will not be able to login!
+        !!! So, be VERY carefully, if you change the rights and groups !!!
+
+- COOL GIMMICK:
+  if you have installed windows on your client PC, you can add the
+  pmtool taskbar to your start menu. This is a very usefull small bar
+  to hanlde your jobs. So you do not need to open a browser window every time
+  you post your jobs. You can see a screenshot of this at
+  http://www.pmtool.org/index.php?page=5
+
+  INSTALL: - right-click on your start menu
+           - choose "toolbars" (i hope, this is right, it's named
+             "Symbolleisten" in german ;)
+           - select the entry "new toolbar..."
+           - windows will now prompt you to enter a folder name
+           - instead of this, you can also enter URLs starting with "http*"
+           - so type "http://<your.pmtool.location>/taskbar.php" in the textfield
+           - press the "OK" button
+           - pretty cool, huh ? ;)
+
+Note : I know, there's no documentation for this thing, just
+       experience it - it's pmtool XP ;)
+
+PS   : sorry for my sucking english, but i'm german :o)
+
+PPS  : NEVER, NEVER use Netscape 4.x as Browser for pmtool - it looks
+       really UGLY! ;)
+
+PPPS : pmtool contains a feature to generate reports written in XML and
+       designed by XSL-templates. Currently only MS Internet Explorer
+       is able to show such files!
+       You can create own XSL-Templates like the example in
+       templates/reports/bill/template.xsl. Just create a new
+       file "template/reports/<foo bar>/template.xsl
+       it will automatically be shown in the report dialog
+
+#                                                                         #
+###########################################################################
+

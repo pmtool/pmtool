@@ -1,0 +1,309 @@
+/***************************************************************************
+ * $Source: /cvsroot/pmtool/pmtool/styles.css,v $
+ * $Revision: 1.2 $
+ * $Date: 2004/02/28 19:51:42 $
+ * $Author: znouza $
+ * $Locker:  $
+ * $State: Exp $
+ *
+ * Copyright (c) by willuhn.webdesign
+ * All rights reserved
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ ***************************************************************************/
+
+/*####################################################################
+  ## Definitions for default tags
+*/
+body  {
+  background-color    : #d9d9d9;
+  color               : #000000;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-top          : 0px;
+  margin-bottom       : 0px;
+}
+
+p,h1,h2,h3,h4,ul,ol,li,div,td,th,address,blockquote,nobr,b,i {
+  font-family         : Verdana, Helvetica, Arial;
+  color               : #000000;
+  font-size           : 8pt;
+}
+
+h1 {
+  margin-top          : 0pt;
+  margin-bottom       : 10pt;
+  margin-right        : 10pt;
+  color               : #2E81B9;
+  font-size           : 10pt;
+  font-weight         : bold;
+  text-align          : right;
+}
+
+h2 {
+  margin-top          : 0pt;
+  margin-bottom       : 8pt;
+  color               : #000000;
+  font-weight         : bold;
+}
+
+tr.light {
+  background-color    : #f0f0f0;
+  vertical-align      : top;
+}
+
+tr.dark {
+  background-color    : #eaeaea;
+  vertical-align      : top;
+}
+
+th {
+  background-color    : #e0e0e0;
+  color               : #000000;
+  text-align          : left;
+}
+
+th.right {
+  background-color    : #e0e0e0;
+  color               : #000000;
+  text-align          : right;
+}
+
+td.list {
+  background-color    : #f0f0f0;
+  vertical-align      : top;
+}
+td.list_private {
+  background-color    : #f0f0f0;
+  vertical-align      : top;
+  font-style		  : italic;
+}
+
+
+th.navi {
+  background-color    : #70A7CE;
+  color               : #000000;
+  font-weight         : normal;
+  text-align          : left;
+}
+
+li {
+  margin-top          : 4pt;
+  margin-bottom       : 4pt;
+}
+
+pre  {
+  font-family         : Courier New;
+  font-size           : 8pt;
+}
+
+/*##
+  ####################################################################
+  ## Forms
+*/
+
+form {
+  margin-top          : 1pt;
+  margin-bottom       : 1pt;
+}
+select,input,textarea,file {
+  font-family         : Verdana, Helvetica, Arial;
+  background-color    : #f4f4f4;
+  border-style        : groove;
+  font-size           : 7pt;
+}
+
+input.checkbox {
+  border-style        : none;
+  background          : none;
+}
+
+input.image {
+  border-style        : none;
+}
+
+input.button {
+  background-color    : #efefef;
+}
+
+input.submit {
+  background-color    : #efefef;
+  font-weight         : bold;
+}
+
+/*##
+  ####################################################################
+  ## Links
+*/
+
+a  {
+  text-decoration     : none;
+  font-size           : 8pt;
+}
+
+a:link  {
+  color               : #000055;
+}
+
+a:active  {
+  color               : #222299;
+  text-decoration     : underline;
+}
+
+a:visited  {
+  color               : #555555;
+}
+
+a:hover  {
+  color               : #222299;
+  text-decoration     : underline;
+}
+
+a.navi  {
+  color               : #000000;
+  text-decoration     : none;
+  font-size           : 8pt;
+}
+
+a.navi:link  {
+  color               : #000000;
+}
+
+a.navi:active  {
+  color               : #000000;
+  background-color    : #C4D9E8;
+  text-decoration     : none;
+}
+
+a.navi:visited  {
+  color               : #000000;
+}
+
+a.navi:hover  {
+  color               : #000000;
+  background-color    : #C4D9E8;
+  text-decoration     : none;
+}
+
+/*##
+  ####################################################################
+  ## misc
+*/
+
+.comment {
+  color               : #999999;
+  font-size           : 7pt;
+}
+
+.small {
+  font-size           : 7pt;
+}
+
+.smallbold {
+  font-size           : 7pt;
+  font-weight         : bold;
+}
+
+.bgdark {
+  background-color    : #909090;
+}
+
+.bglight {
+  background-color    : #f0f0f0;
+}
+
+.red {
+  color               : #CA2222;
+}
+
+.yellow {
+  color               : #CED02A;
+}
+
+.green {
+  color               : #169216;
+}
+
+.black {
+  color               : #000000;
+}
+
+.gray {
+  color               : #808080;
+}
+
+/*##
+  ####################################################################
+  ## Forms
+*/
+body.taskbar  {
+  border-style        : none;
+  background-color    : #D4D0C8;
+  color               : #000000;
+  margin-left         : 0px;
+  margin-right        : 0px;
+  margin-top          : 0px;
+  margin-bottom       : 0px;
+}
+form.taskbar {
+  margin-top          : 0pt;
+  margin-bottom       : 0pt;
+}
+input.checkbox.taskbar {
+  background-color    : #D4D0C8;
+  border-style        : none;
+}
+
+/***************************************************************************
+ * $Log: styles.css,v $
+ * Revision 1.2  2004/02/28 19:51:42  znouza
+ *
+ * index.php
+ * @B some minor bugs
+ *
+ * projectdetails.php
+ * @N feature private job support added
+ *
+ * taskdetails.php
+ * @N feature private job support added
+ *
+ * reports.php
+ * @B javascript (reports not shown) fixed
+ * @B missing } fixed
+ * @B some bugs fixed
+ * @C displaying tasks even no jobs added (for private jobs support)
+ * @N feature private job support added
+ *
+ * styles.css
+ * @N added list_private item for displaying private jobs (italics)
+ *
+ * Revision 1.1.1.1  2003/07/28 19:22:24  willuhn
+ * reimport
+ *
+ * Revision 1.10  2002/05/23 21:49:16  willuhn
+ * @N added some more language stuff
+ *
+ * Revision 1.9  2002/04/15 20:41:39  willuhn
+ * @N pluginLoader
+ *
+ * Revision 1.8  2002/02/24 22:41:20  willuhn
+ * updated content-type in reportviewer
+ *
+ * Revision 1.7  2002/02/09 19:38:27  willuhn
+ * @N added CVS log
+ * @N added french language file
+ *
+ *
+ ***************************************************************************/
