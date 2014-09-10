@@ -4,7 +4,7 @@ PMTool
 What is PMTool?
 ---------------------
 
-PMtool is dead and no longer maintained == PMtool is a project management software (based on PHP+MySQL) 
+PMtool is a project management software (based on PHP+MySQL) 
 to create tasks for change/bug requests, post timesheets, and calculate number of times used.
 
 Plus, it's completely free – you'll never have to pay any license fees to use
