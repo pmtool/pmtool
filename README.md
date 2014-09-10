@@ -98,12 +98,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 [GNU General Public License](http://www.gnu.org/licenses/gpl.txt)
 for more details.
 
-###########################################################################
-# Original Author: Olaf Willuhn 2000 - 2002 				                      #
-###########################################################################
-# Copyright (C) Robby Russell 2004 - 2005           	        	          #
-# email: robby@planetargon.com 	                              	          #
-###########################################################################
+Original Author: Olaf Willuhn 2000 - 2002 				                     
+Copyright (C) Robby Russell 2004 - 2005           	        	         
 
-# Copyright (C) Marc Morissette 2014 - 2015                  		          #
+Copyright (C) Marc Morissette 2014 - 2015                  		         
 
