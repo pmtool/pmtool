@@ -179,6 +179,10 @@ define("DEBUG",false);
 $config['debug_target']          = "/tmp/pmtool_debug.log";
 #$config['debug_target']          = "/var/log/httpd/error_log";
 
+ini_set( 'display_errors', 1 );
+//error_reporting( E_ALL | E_NOTICE );
+error_reporting( E_ERROR );
+
 
 /***************************************************************************
  * $Log: config.inc.php,v $
