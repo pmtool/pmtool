@@ -36,10 +36,10 @@ class mysql extends db {
 
     // open new database connection
     if (!$link = mysql_connect($this->config['host'], $this->config['user'], $this->config['pass'])) {
-      $this->error("unable to connect to database");
+      $this->myError("unable to connect to database");
     }
     if (!mysql_select_db($this->config['name'])) {
-      $this->error("unable to select database (name: ".$this->config['name'].")");
+      $this->myError("unable to select database (name: ".$this->config['name'].")");
     }
     $this->dbLink = $link;
   }
@@ -52,7 +52,7 @@ class mysql extends db {
 
   function close() {
     if ($this->$dbLink) {
-      return mysql_close() || $this->error("unable to close database handle");
+      return mysql_close() || $this->myError("unable to close database handle");
     }
   }
 
@@ -63,7 +63,7 @@ class mysql extends db {
 
     $result = mysql_query($query);
     if (!$result) {
-      $this->error("unable to send query to database", $query);
+      $this->myError("unable to send query to database", $query);
     }
     $matches = 0;
     if (eregi("^select", $query)) {
@@ -84,7 +84,7 @@ class mysql extends db {
     return mysql_fetch_array($result);
   }
 
-  function error($message, $query="") {
+  function myError($message, $query="") {
     echo "<h2>".$message."</h2>\n";
     echo "<table>\n";
     if ($query != "") {

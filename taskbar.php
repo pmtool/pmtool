@@ -47,20 +47,21 @@ if (tool::securePost('action') && tool::securePost('action') == "logout") {
 <form method="post" name="form1" class="taskbar" target="_self">
 <?PHP
 
-if (! isset($HTTP_SESSION_VARS["loginid"]) || $HTTP_SESSION_VARS["loginid"] == "") {
+if (! isset($_SESSION["loginid"]) || $_SESSION["loginid"] == "") {
   // session is not set -> authenticate
 
   // try to authenticate by IP
   if ($loginInst->authByIp()) {
-    $HTTP_SESSION_VARS['loginid'] = $loginInst->authByIp();
+    $_SESSION['loginid'] = $loginInst->authByIp();
   }
   // try to authenticate by username/password
   elseif (tool::securePost('loginname') && tool::securePost('password') && $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'))) {
-    $HTTP_SESSION_VARS['loginid'] = $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'));
+    $_SESSION['loginid'] = $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'));
   }
 
-  if (isset($HTTP_SESSION_VARS['loginid']) && $HTTP_SESSION_VARS['loginid'] != "" && ! session_is_registered("loginid")) {
-    $loginid = $HTTP_SESSION_VARS['loginid'];
+  /*
+  if (isset($_SESSION['loginid']) && $_SESSION['loginid'] != "" && ! session_is_registered("loginid")) {
+    $loginid = $_SESSION['loginid'];
     if (! session_register("loginid")) {
       echo "<b>".$lang['common_unableToSaveLoginInSession']."</b><br>";
       // could not save session -> give up
@@ -73,7 +74,7 @@ if (! isset($HTTP_SESSION_VARS["loginid"]) || $HTTP_SESSION_VARS["loginid"] == "
     $toolInst->errorStatus($lang['common_userUnknownOrPasswordWrong']);
   }
 }
-
+*/
 
 ///// Language settings
 $lang = array();
@@ -87,14 +88,14 @@ if (file_exists("lang/".$config['language'].".inc.php")) {
 
 
 if (session_is_registered("loginid")) {
-  if (! isset($HTTP_SESSION_VARS['loginid']) || $HTTP_SESSION_VARS['loginid'] == "") {
+  if (! isset($_SESSION['loginid']) || $_SESSION['loginid'] == "") {
     echo "<b>".$lang['common_unableToFindloginInSession']."</b><br>";
     // could not save session -> give up
     exit;
   }
 
   // activate user
-  $loginInst->activate($HTTP_SESSION_VARS['loginid']);
+  $loginInst->activate($_SESSION['loginid']);
 
   // check existence of user specific language
   if (isset($loginInst->language) &&

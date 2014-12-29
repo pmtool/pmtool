@@ -10,28 +10,29 @@
   
   if (!file_exists("inc/includer.inc.php")) {echo "panic: inc/includer.inc.php doesn't exist";exit;} require("inc/includer.inc.php");
 
-  if (! isset($HTTP_SESSION_VARS['loginid'])) {
+  if (! isset($_SESSION['loginid'])) {
   // session is not set -> authenticate
 
   // try to authenticate by IP
   if ($loginInst->authByIp()) {
-    $HTTP_SESSION_VARS['loginid'] = $loginInst->authByIp();
+    $_SESSION['loginid'] = $loginInst->authByIp();
   }
   // try to authenticate by username/password
   elseif (tool::securePost('loginname') &&
           $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password')))
   {
-    $HTTP_SESSION_VARS['loginid'] = $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'));
+    $_SESSION['loginid'] = $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'));
   }
 
-  if (isset($HTTP_SESSION_VARS['loginid']) && $HTTP_SESSION_VARS['loginid'] != "" && ! session_is_registered("loginid")) {
-    $loginid = $HTTP_SESSION_VARS['loginid'];
+ /* if (isset($_SESSION['loginid']) && $_SESSION['loginid'] != "" && ! session_is_registered("loginid")) {
+    $loginid = $_SESSION['loginid'];
     if (! session_register("loginid")) {
       echo "<b>".$lang['common_unableToSaveLoginInSession']."</b><br>";
       // could not save session -> give up
       exit;
     }
   }
+  */
 
   elseif (!session_is_registered("loginid") && (tool::securePost('loginname') || tool::securePost('password'))) {
       // show error message only, if username/password was submitted
@@ -42,13 +43,13 @@
 
 
   if (session_is_registered("loginid")) {
-  if (! isset($HTTP_SESSION_VARS['loginid']) || $HTTP_SESSION_VARS['loginid'] == "") {
+  if (! isset($_SESSION['loginid']) || $_SESSION['loginid'] == "") {
     echo "<b>".$lang['common_unableToFindloginInSession']."</b><br>";
     // could not save session -> give up
     exit;
   }
 
-  $loginInst->activate($HTTP_SESSION_VARS['loginid']);
+  $loginInst->activate($_SESSION['loginid']);
 
   $filename = preg_replace(array("/^[\.]*/","/\//"), array("",""), tool::secureGet('filename'));
   $filecreated = ereg_replace("[^0-9]", "", tool::secureGet('created'));

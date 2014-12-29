@@ -35,7 +35,7 @@ if (! session_is_registered("loginid")) {
   exit;
 }
 // activate user
-$loginInst->activate($HTTP_SESSION_VARS["loginid"]);
+$loginInst->activate($_SESSION["loginid"]);
 
 if (!$loginInst->id) {
   echo "access denied\n";

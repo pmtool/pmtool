@@ -650,7 +650,7 @@ class task extends request {
 
     if ($result[1] == 1 || $result[1] == 0) {
       $this->id = $id;
-      $this->mail($this->userId,"there's a NEW task for you:");
+      $this->myMail($this->userId,"there's a NEW task for you:");
 
       // logging
       $userInst = new user($this->userId);
@@ -715,7 +715,7 @@ class task extends request {
       // notification mail to manager, if task set to done
       if ($result[1] == 1 && $this->isDone()) {
         $projectInst = new project($this->projectId);
-        $this->mail($projectInst->managerId," --== TASK DONE ==--\n\nused time: ".$toolInst->formatTime($this->getSummary()));
+        $this->myMail($projectInst->managerId," --== TASK DONE ==--\n\nused time: ".$toolInst->formatTime($this->getSummary()));
       }
 
       // logging
@@ -742,7 +742,7 @@ class task extends request {
         // task is set to status "done", we should start all child tasks now
         if ($this->isDone()) {
           $child->start();
-          $child->mail($child->userId,"There's an automatically started task for you:");
+          $child->myMail($child->userId,"There's an automatically started task for you:");
         }
         $child->update();
         next($childs);
@@ -938,7 +938,7 @@ class task extends request {
    * sends a mail after creating/changing a task
    * @access private
    */
-  function mail($recipientId,$msgBody) {
+  function myMail($recipientId,$msgBody) {
     global $config,$loginInst,$toolInst;
 
     if (!$config['automail']) return false;

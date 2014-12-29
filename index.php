@@ -49,45 +49,46 @@ if (!file_exists("lang/".$config['language'].".inc.php")) {
 require("lang/{$config['language']}.inc.php");
 /////////////////////
 
-if (! isset($HTTP_SESSION_VARS['loginid'])) {
+if (! isset($_SESSION['loginid'])) {
     // session is not set -> authenticate
 
     // try to authenticate by IP
     if ($loginInst->authByIp()) {
-        $HTTP_SESSION_VARS['loginid'] = $loginInst->authByIp();
+        $_SESSION['loginid'] = $loginInst->authByIp();
     }
     // try to authenticate by username/password
     elseif (tool::securePost('loginname') &&
            $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password')))
     {
-        $HTTP_SESSION_VARS['loginid'] = $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'));
+        $_SESSION['loginid'] = $loginInst->authByPassword(tool::securePost('loginname'),tool::securePost('password'));
     }
 
-    if (isset($HTTP_SESSION_VARS['loginid']) && $HTTP_SESSION_VARS['loginid'] != "" && ! session_is_registered("loginid")) {
-        $loginid = $HTTP_SESSION_VARS['loginid'];
-        if (! session_register("loginid")) {
+    if (isset($_SESSION['loginid']) && $_SESSION['loginid'] != "" && ! isset($_SESSION['loginid'])) {
+        $loginid = $_SESSION['loginid'];
+        if (! isset($_SESSION['loginid'] )) {
             echo "<b>".$lang['common_unableToSaveLoginInSession']."</b><br>";
             // could not save session -> give up
             exit;
         }
     }
 
-    elseif (!session_is_registered("loginid") && (tool::securePost('loginname') || tool::securePost('password'))) {
+    elseif (! isset($_SESSION['loginid'] ) && (tool::securePost('loginname') || tool::securePost('password'))) {
         // show error message only, if username/password was submitted
         tool::errorStatus($lang['common_userUnknownOrPasswordWrong']);
     }
 }
 
 // Choose content for page.
-if (session_is_registered("loginid")) {
-    if (! isset($HTTP_SESSION_VARS['loginid']) || $HTTP_SESSION_VARS['loginid'] == "") {
+if ( isset( $_SESSION['loginid'] ) ) {
+
+   if (! isset($_SESSION['loginid']) || $_SESSION['loginid'] == "") {
         echo "<b>".$lang['common_unableToFindloginInSession']."</b><br>";
         // could not save session -> give up
         exit;
     }
 
     // activate user
-    $loginInst->activate($HTTP_SESSION_VARS['loginid']);
+    $loginInst->activate($_SESSION['loginid']);
 
     // determine actual page
     if (tool::secureGet("content") &&
@@ -236,10 +237,12 @@ EOT;
 EOT;
         }
     }
-    foreach ($content_menu_th_arr as $th) {
-        $content_menu_th_str .= $th;
+    $content_menu_th_str = "";
+    if (isset( $content_menu_th_arr )) {
+        foreach ($content_menu_th_arr as $th) {
+            $content_menu_th_str .= $th;
+        }
     }
-
 
     // Write the html for the plugins option list.
     if ( isset($lang['common_plugins']) ) {
@@ -304,6 +307,7 @@ EOT;
     // Write the HTML for the 'logged in as' line.
     $content_loggedinas_top = '';
     $content_loggedinas_bot = '';
+    $content_loggedinas_grouplist = '';
     if (isset($loginInst->id) && $loginInst->id != "") {
         $list = $loginInst->getGroups();
         if ($list) {

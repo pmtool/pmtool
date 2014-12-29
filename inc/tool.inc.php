@@ -55,7 +55,7 @@ class tool {
    * @param message errormessage.
    * @return void.
    */
-  function errorStatus($message) {
+  static function errorStatus($message) {
     global $global_status;
     $global_status = "<font color=#ff0000>error: ".$message."</font>";
   }
@@ -67,7 +67,7 @@ class tool {
    * @param message successmessage.
    * @return void.
    */
-  function successStatus($message) {
+  static function successStatus($message) {
     global $global_status;
     $global_status = "<font color=#009900>ok: ".$message."</font>";
   }
@@ -79,7 +79,7 @@ class tool {
    * @param message message.
    * @return void.
    */
-  function appendStatus($message) {
+  static function appendStatus($message) {
     global $global_status;
     $global_status .= $message;
   }
@@ -95,7 +95,7 @@ class tool {
    * @param sec the seconds of the minute (0-59).
    * @return unix seconds since 1.1.1970.
    */
-  function timestampToSec($year,$month,$day,$hour,$min,$sec="0") {
+  static function timestampToSec($year,$month,$day,$hour,$min,$sec="0") {
     return mktime($hour,$min,$sec,$month,$day,$year);
 
   }
@@ -107,7 +107,7 @@ class tool {
    * @param actTime the time in seconds since 1.1.1970.
    * @return formatted time.
    */
-  function getTime($format,$actTime="") {
+  static function getTime($format,$actTime="") {
     if (!$actTime || $actTime == "") {$actTime = time();}
     if (!$format || $format == "") {
       return date("Y-m-d, H:i:s",$actTime);
@@ -117,7 +117,7 @@ class tool {
     }
   }
 
-  function deductibleSeconds($time) {
+  static function deductibleSeconds($time) {
     global $config;
 
     $minutes = ceil($time/60);
@@ -158,31 +158,31 @@ class tool {
     return ($minutes * 60);
   }
 
-  function deductibleHours($time) {
+  static function deductibleHours($time) {
 
     $min = ceil(tool::deductibleSeconds($time) / 60);
     return tool::numberRound(($min/60),2);
   }
 
   // math
-  function numberRound($number,$decimals=2) {
+  static function numberRound($number,$decimals=2) {
     // this is needed, because round precision is not available in PHP3's round()
     $multiplier = "1";
     for($i=0;$i<$decimals;$i++) $multiplier *= 10;
     return floor($number * $multiplier)/$multiplier;
   }
 
-  function checkInt($string) {
+  static function checkInt($string) {
     if (!isset($string) || $string == "") return false;
     if (!eregi("[^0-9]",$string)) return true;
   }
 
-  function checkFloat($string) {
+  static function checkFloat($string) {
     if (!isset($string) || $string == "") return false;
     if (!eregi("[^0-9\.,]",$string)) return true;
   }
 
-  function formatTimestamp($timestamp) {
+  static function formatTimestamp($timestamp) {
     $year  = substr($timestamp,0,4);
     $month = substr($timestamp,4,2);
     $day   = substr($timestamp,6,2);
@@ -193,7 +193,7 @@ class tool {
   }
 
   // format
-  function formatCurrency($value) {
+  static function formatCurrency($value) {
     global $config;
     $value = tool::numberRound($value,2);
     if (ereg(",",$value)) {
@@ -206,7 +206,7 @@ class tool {
     return $value." ".$config['currency'];
   }
 
-  function formatTime($time) {
+  static function formatTime($time) {
     $time = ceil($time/60);
     $time_hour = floor($time/60);
     $time_min = $time - $time_hour*60;
@@ -215,7 +215,7 @@ class tool {
   }
 
   // html
-  function encodeUrl($url) {
+  static function encodeUrl($url) {
     $sessionId = session_id();
     
     return $url;
@@ -227,13 +227,13 @@ class tool {
 #    else                  return $url."&PHPSESSID=".$sessionId;
   }
 
-  function encodeXml($string) {
+  static function encodeXml($string) {
     $string = ereg_replace("&","&amp;",$string);
 
     return $string;
   }
 
-  function encodeString($string="") {
+  static function encodeString($string="") {
     global $toolInst;
 
     if ($string == "") return "";
@@ -278,7 +278,7 @@ class tool {
     return addslashes($string);
   }
 
-  function getDir($dir) {
+  static function getDir($dir) {
     if (!$dir) return "";
 
     $dirs = array();
@@ -291,11 +291,11 @@ class tool {
     return $dirs;
   }
 
-  function getVersion($version) {
+  static function getVersion($version) {
     return eregi_replace("[^0-9\.]","",$version);
   }
 
-  function loadPlugin($plugin) {
+  static function loadPlugin($plugin) {
     global $toolInst, $loginInst, $config, $content;
 
     // no plugin given
@@ -330,7 +330,7 @@ class tool {
     return true;
   }
 
-  function secureGet($name=null) {
+  static function secureGet($name=null) {
     if ($name == null) {
       return null;
     }
@@ -349,7 +349,7 @@ class tool {
     return null;
   }
 
-  function secureGetAll() {
+  static function secureGetAll() {
     $array = array();
     if (PHP_VERSION >= 4.1) {
       global $_GET;
@@ -366,7 +366,7 @@ class tool {
     return $array;
   }
 
-  function securePost($name=null) {
+  static function securePost($name=null) {
     if ($name == null) return null;
 
     if (PHP_VERSION >= 4.1) {
@@ -384,7 +384,7 @@ class tool {
     return null;
   }
 
-  function securePostAll() {
+  static function securePostAll() {
     $array = array();
     if (PHP_VERSION >= 4.1) {
       global $_POST;
@@ -406,7 +406,7 @@ class tool {
    *
   **/
 
-  function secureFiles($name = null, $subname = null) {
+  static function secureFiles($name = null, $subname = null) {
     if ($name == null) return null;
 
     if (PHP_VERSION >= 4.1) {
